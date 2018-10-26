@@ -1,0 +1,37 @@
+
+import uocra.*
+import obreros.*
+import obras.*
+
+describe "Registro de Consumo de Materiales" {
+	
+	var obra = new Obra()
+	var albanil1 = new Albanil()
+	var albanil2 = new Albanil()
+	var gasista1 = new Gasista()
+	var gasista2 = new Gasista()
+	var plomero = new Plomero()
+	
+	fixture "Registro de consumo de materiales " {
+	
+	obra.agregarObrero([albanil1,albanil2,gasista1,gasista2,plomero])
+	obra.cantLadrillo(1000)
+	obra.cantCanio(400)
+	obra.cantFosforo(8000)
+	obra.cantArandela(500)
+	albanil1.tomarLicencia()
+	
+	}
+
+test "Registro de una Jornada Laboral" {
+
+	obra.iniciarJornada()
+	assert.equals(900,obra.cantLadrillo())
+	assert.equals(348,obra.cantCanio())
+	assert.equals(7960,obra.cantFosforo())
+	assert.equals(470,obra.cantFosforo())
+	
+	assert.that(true)
+
+}
+}
