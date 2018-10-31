@@ -1,11 +1,13 @@
 class Obrero { 
 	
 	var bLicencia = false
+	var cantJornadas = 0
 	
 	method estaDeLicencia() { return bLicencia }
 	method tomarLicencia() { bLicencia = true }
 	method volverDeLicencia() { bLicencia = false }
 	method trabajar(obra) 
+	
 	
 }
 
@@ -16,6 +18,7 @@ class Albanil inherits Obrero {
 	
 	override method trabajar(obra) { 
 		obra.consumirLadrillo(cantLadrillos)
+		cantJornadas ++
 	}
 	
 	
@@ -30,6 +33,7 @@ class Gasista inherits Obrero {
 	override method trabajar(obra) {
 		obra.consumirCanio(cantCanio)
 		obra.consumirFosforo(cantFosforo)
+		cantJornadas ++
 	}
 }
 
@@ -43,6 +47,7 @@ class Plomero inherits Obrero {
 	override method trabajar(obra) {
 		obra.consumirCanio(cantCanio)
 		obra.consumirArandela(cantArandela)
+		cantJornadas ++
 	}
 	
 }
@@ -56,6 +61,7 @@ class Electricista inherits Obrero {
 	override method trabajar(obra) {
 		obra.consumirCable(cantCable)
 		obra.consumirCinta(cantCinta)
+		cantJornadas ++
 	}
 	
 }

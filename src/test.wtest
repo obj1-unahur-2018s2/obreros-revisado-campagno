@@ -14,7 +14,7 @@ describe "Registro de Consumo de Materiales" {
 	
 	fixture "Registro de consumo de materiales " {
 	
-	obra.agregarObrero([albanil1,albanil2,gasista1,gasista2,plomero])
+	obra.agregarObreros([albanil1,albanil2,gasista1,gasista2,plomero])
 	obra.cantLadrillo(1000)
 	obra.cantCanio(400)
 	obra.cantFosforo(8000)
@@ -27,11 +27,20 @@ test "Registro de una Jornada Laboral" {
 
 	obra.iniciarJornada()
 	assert.equals(900,obra.cantLadrillo())
-	assert.equals(348,obra.cantCanio())
+	assert.equals(384,obra.cantCanio())
 	assert.equals(7960,obra.cantFosforo())
-	assert.equals(470,obra.cantFosforo())
+	assert.equals(470,obra.cantArandela())
 	
-	assert.that(true)
 
+}
+test "Error-1" {
+	
+	[albanil1,albanil2,gasista1,gasista2,plomero].forEach({obrero=>obrero.tomarLicencia()})
+	
+	assert.throwsException {obra.iniciarJornada()}
+}
+test "Error-2"{
+	
+	assert.throwsException {obra.quitarObrero(albanil1)}
 }
 }

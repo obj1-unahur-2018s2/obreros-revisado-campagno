@@ -11,15 +11,24 @@ class Obra {
 	method agregarObrero(obrero) {
 		plantilla.add(obrero)
 	}
+	method agregarObreros(obreros) {
+		plantilla.addAll(obreros)
+	}
 	method quitarObrero(obrero) {
+		if (obrero.estaDeLicencia()) {
+			self.error("Las leyes laborales están para respetarse - licencia implica estabilidad laboral")
+		}
 		plantilla.remove(obrero)
 		
 	}
-	method obrerosDeLicencia() {
-		return plantilla.filter({obrero=>!obrero.estaDeLicencia()})
+	method obrerosDisponibles() {
+		return plantilla.filter({obrero=>!(obrero.estaDeLicencia())})
 	} 
 	method iniciarJornada() {
-		(self.obrerosDeLicencia()).forEach({obrero=>obrero.trabajar(self)})
+		if (self.obrerosDisponibles().isEmpty()) { 
+		self.error("No hay obreros disponibles para trabajar")
+	}
+		(self.obrerosDisponibles()).forEach({obrero=>obrero.trabajar(self)})
 	}
 	method consumirLadrillo(cantidad) {
 		cantLadrillo -= cantidad
