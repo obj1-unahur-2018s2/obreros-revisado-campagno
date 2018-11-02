@@ -5,8 +5,9 @@ class Obra {
 	var property cantFosforo = 0
 	var property cantArandela = 0
 	var property cantCanio = 0
+	var property cantCinta = 0
 	var property plantilla = []
-	
+	var property saldo = 0
 	
 	method agregarObrero(obrero) {
 		plantilla.add(obrero)
@@ -44,6 +45,16 @@ class Obra {
 	}
 	method consumirArandela(cantidad) {
 		cantArandela -= cantidad
+	}
+	method consumirCinta(cantidad) {
+		cantCinta -= cantidad
+	}
+	method deuda() {
+		return plantilla.sum({obrero=>obrero.cuantoCobra()})
+	}
+	method pagarDeuda() {
+		saldo -= self.deuda()
+		plantilla.forEach({obrero=>obrero.cancelarJornada()})
 	}
 	
 	

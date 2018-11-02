@@ -1,3 +1,25 @@
+object uocra {
+	
+	 
+	
+	method jornalAlbanil() {
+		return 2000
+	}
+	
+	method jornalGasista() {
+		return 3000
+	}
+	
+	method jornalPlomero() {
+		return 3000
+	}
+	
+	method jornalElectricista() {
+		return 3500
+	}
+	
+}
+
 class Obrero { 
 	
 	var bLicencia = false
@@ -7,6 +29,10 @@ class Obrero {
 	method tomarLicencia() { bLicencia = true }
 	method volverDeLicencia() { bLicencia = false }
 	method trabajar(obra) 
+	method cuantoCobra()
+	method cancelarJornada()  {
+		cantJornadas = 0
+	}
 	
 	
 }
@@ -19,6 +45,9 @@ class Albanil inherits Obrero {
 	override method trabajar(obra) { 
 		obra.consumirLadrillo(cantLadrillos)
 		cantJornadas ++
+	}
+	override method cuantoCobra() {
+		return uocra.jornalAlbanil() * cantJornadas
 	}
 	
 	
@@ -35,6 +64,9 @@ class Gasista inherits Obrero {
 		obra.consumirFosforo(cantFosforo)
 		cantJornadas ++
 	}
+	override method cuantoCobra() {
+		return uocra.jornalGasista() * cantJornadas
+	}
 }
 
 class Plomero inherits Obrero {
@@ -49,6 +81,9 @@ class Plomero inherits Obrero {
 		obra.consumirArandela(cantArandela)
 		cantJornadas ++
 	}
+	override method cuantoCobra() {
+		return uocra.jornalPlomero() * cantJornadas
+	}
 	
 }
 
@@ -62,6 +97,9 @@ class Electricista inherits Obrero {
 		obra.consumirCable(cantCable)
 		obra.consumirCinta(cantCinta)
 		cantJornadas ++
+	}
+	override method cuantoCobra() {
+		return uocra.jornalElectricista() * cantJornadas
 	}
 	
 }

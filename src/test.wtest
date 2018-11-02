@@ -1,5 +1,5 @@
 
-import uocra.*
+
 import obreros.*
 import obras.*
 
@@ -11,15 +11,19 @@ describe "Registro de Consumo de Materiales" {
 	var gasista1 = new Gasista()
 	var gasista2 = new Gasista()
 	var plomero = new Plomero()
+	var electricista = new Electricista()
 	
-	fixture "Registro de consumo de materiales " {
+	fixture  {
 	
-	obra.agregarObreros([albanil1,albanil2,gasista1,gasista2,plomero])
+	obra.agregarObreros([albanil1,albanil2,gasista1,gasista2,plomero,electricista])
 	obra.cantLadrillo(1000)
 	obra.cantCanio(400)
 	obra.cantFosforo(8000)
 	obra.cantArandela(500)
+	obra.cantCable(400)
+	obra.cantCinta(50)
 	albanil1.tomarLicencia()
+	
 	
 	}
 
@@ -35,12 +39,34 @@ test "Registro de una Jornada Laboral" {
 }
 test "Error-1" {
 	
-	[albanil1,albanil2,gasista1,gasista2,plomero].forEach({obrero=>obrero.tomarLicencia()})
+	[albanil1,albanil2,gasista1,gasista2,plomero,electricista].forEach({obrero=>obrero.tomarLicencia()})
 	
 	assert.throwsException {obra.iniciarJornada()}
 }
 test "Error-2"{
 	
 	assert.throwsException {obra.quitarObrero(albanil1)}
+}
+test "Segunda Parte" {
+	
+	obra.iniciarJornada()
+	albanil1.volverDeLicencia()
+	plomero.tomarLicencia()
+	obra.iniciarJornada()
+	obra.saldo(100000)
+	
+	assert.equals(4000, albanil2.cuantoCobra())
+	assert.equals(2000, albanil1.cuantoCobra())
+	assert.equals(6000, gasista1.cuantoCobra())
+	assert.equals(6000, gasista2.cuantoCobra())
+	assert.equals(3000, plomero.cuantoCobra())
+	assert.equals(7000, electricista.cuantoCobra())
+	assert.equals(28000, obra.deuda())
+	
+	obra.pagarDeuda()
+	
+	assert.equals(0,obra.deuda())
+	assert.equals(72000,obra.saldo())
+	
 }
 }
